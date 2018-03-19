@@ -1,0 +1,12 @@
+# Directories
+node_modules
+coverage
+build
+_local
+
+# Files
+.DS_Store
+.Thumbs.db
+.env.local
+.env.*.local
+*.log*
