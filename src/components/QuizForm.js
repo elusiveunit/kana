@@ -42,6 +42,7 @@ const textSizing = css`
 const buttonWidth = css`
   width: 10vw;
   min-width: 150px;
+  max-width: 220px;
 
   ${media.small`
     width: 100%;
