@@ -57,16 +57,16 @@ export function getRandomRange(
 }
 
 /**
- * Get an array of array indicies (i.e. a continous number range) in a random
+ * Get an array of array indices (i.e. a continous number range) in a random
  * order.
  *
- * @param {number} length - The number of indicies to get.
+ * @param {number} length - The number of indices to get.
  * @param {Array} [current] - Any current index data. If it's supplied and too
- *   small, the newly added indicies will be appended to the end to keep the
+ *   small, the newly added indices will be appended to the end to keep the
  *   previous order up to the new point intact.
  * @return {Array}
  */
-export function getRandomIndicies(
+export function getRandomIndices(
   length: number,
   current?: Array<number> = [],
 ): Array<number> {
@@ -77,7 +77,7 @@ export function getRandomIndicies(
   }
 
   // The new request is larger than the current data. Keep the order of the
-  // current and add a shuffled range of the new indicies to the end.
+  // current and add a shuffled range of the new indices to the end.
   if (current.length < length) {
     return current.concat(shuffleArray(range(length).slice(current.length)));
   }

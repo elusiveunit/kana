@@ -8,7 +8,7 @@ import { toRomaji } from 'wanakana';
 import { ANSWER_CORRECT, ANSWER_ALMOST, ANSWER_NONE } from '../constants/app';
 import {
   getWords,
-  getWordIndicies,
+  getWordIndices,
   getCurrentWordIndex,
   getNextWordIndex,
   checkRomajiAnswer,
@@ -25,7 +25,7 @@ type State = {
   currentWordIndex: number,
   inputValue: string,
   isMeaningVisible: boolean,
-  wordIndicies: Array<number>,
+  wordIndices: Array<number>,
 };
 
 export default class Quiz extends React.Component<Props, State> {
@@ -34,11 +34,11 @@ export default class Quiz extends React.Component<Props, State> {
     currentWordIndex: getCurrentWordIndex(),
     inputValue: '',
     isMeaningVisible: false,
-    wordIndicies: getWordIndicies(getWords()),
+    wordIndices: getWordIndices(getWords()),
   };
 
   getCurrentWord = (): Word =>
-    getWords()[this.state.wordIndicies[this.state.currentWordIndex]];
+    getWords()[this.state.wordIndices[this.state.currentWordIndex]];
 
   advance = () => {
     this.setState((prevState) => ({

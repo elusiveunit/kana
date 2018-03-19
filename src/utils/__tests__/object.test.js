@@ -5,7 +5,7 @@ import {
   assign,
   shuffleArray,
   getRandomRange,
-  getRandomIndicies,
+  getRandomIndices,
 } from '../object';
 
 describe('assign', () => {
@@ -79,42 +79,42 @@ describe('getRandomRange', () => {
   });
 });
 
-describe('getRandomIndicies', () => {
+describe('getRandomIndices', () => {
   it('should return an array of the specified length when the supplied current data is shorter', () => {
-    expect(getRandomIndicies(5, [1, 2, 3]).length).toBe(5);
+    expect(getRandomIndices(5, [1, 2, 3]).length).toBe(5);
   });
 
   it('should return an array of the specified length when the supplied current data is equal', () => {
-    expect(getRandomIndicies(3, [1, 2, 3]).length).toBe(3);
+    expect(getRandomIndices(3, [1, 2, 3]).length).toBe(3);
   });
 
   it('should return an array of the specified length when the supplied current data is longer', () => {
-    expect(getRandomIndicies(3, [1, 2, 3, 4, 5]).length).toBe(3);
+    expect(getRandomIndices(3, [1, 2, 3, 4, 5]).length).toBe(3);
   });
 
-  it('should return a current selection of indicies unaltered', () => {
+  it('should return a current selection of indices unaltered', () => {
     const length = 10;
-    const first = getRandomIndicies(length);
-    const result = getRandomIndicies(length, first);
+    const first = getRandomIndices(length);
+    const result = getRandomIndices(length, first);
     expect(result).toEqual(first);
   });
 
   it('should return a new range if the supplied current data is longer than specified', () => {
     const length = 10;
     const lengthDiff = 5;
-    const current = getRandomIndicies(length + lengthDiff);
-    const result = getRandomIndicies(length, current);
+    const current = getRandomIndices(length + lengthDiff);
+    const result = getRandomIndices(length, current);
     const currentSlice = current.slice(0, length);
 
     expect(result.length).toBe(currentSlice.length);
     expect(result).not.toEqual(current);
   });
 
-  it('should append new indicies to the end if the supplied current data is shorter than specified', () => {
+  it('should append new indices to the end if the supplied current data is shorter than specified', () => {
     const length = 15;
     const lengthDiff = 5;
-    const current = getRandomIndicies(length - lengthDiff);
-    const result = getRandomIndicies(length, current);
+    const current = getRandomIndices(length - lengthDiff);
+    const result = getRandomIndices(length, current);
 
     const resultCurrentSlice = result.slice(0, length - lengthDiff);
     expect(resultCurrentSlice.length).toBe(current.length);

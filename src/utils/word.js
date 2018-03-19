@@ -9,10 +9,10 @@ import {
   ANSWER_WRONG,
   ANSWER_ALMOST,
   ANSWER_CORRECT,
-  STORAGE_KEY_INDICIES,
+  STORAGE_KEY_INDICES,
   STORAGE_KEY_CURRENT_INDEX,
 } from '../constants/app';
-import { getRandomIndicies } from './object';
+import { getRandomIndices } from './object';
 import { logError } from './app';
 
 import wikipedia from '../data/1-wikipedia.json';
@@ -53,45 +53,45 @@ export function getWords(): Array<Word> {
   return wordCache;
 }
 
-const SAVED_INDICIES_SEPARATOR = ',';
+const SAVED_INDICES_SEPARATOR = ',';
 /**
- * Save word collection indicies to localStorage.
+ * Save word collection indices to localStorage.
  *
- * @param {Array} indicies - The.
+ * @param {Array} indices - The.
  */
-export function saveIndicies(indicies: Array<number>) {
+export function saveIndices(indices: Array<number>) {
   try {
     localStorage.setItem(
-      STORAGE_KEY_INDICIES,
-      indicies.join(SAVED_INDICIES_SEPARATOR),
+      STORAGE_KEY_INDICES,
+      indices.join(SAVED_INDICES_SEPARATOR),
     );
     return true;
   } catch (e) {
-    logError('Saving indicies', e);
+    logError('Saving indices', e);
     return false;
   }
 }
 
 /**
- * Get array indicies for the word collection in a random order.
+ * Get array indices for the word collection in a random order.
  *
  * @return {Array}
  */
-export function getWordIndicies(): Array<number> {
-  const savedData = localStorage.getItem(STORAGE_KEY_INDICIES);
-  const savedIndicies = savedData
+export function getWordIndices(): Array<number> {
+  const savedData = localStorage.getItem(STORAGE_KEY_INDICES);
+  const savedIndices = savedData
     ? savedData
-      .split(SAVED_INDICIES_SEPARATOR)
+      .split(SAVED_INDICES_SEPARATOR)
       .map((num) => parseInt(num, 10))
       .filter((num) => !Number.isNaN(num))
     : [];
-  const indicies = getRandomIndicies(getWords().length, savedIndicies);
+  const indices = getRandomIndices(getWords().length, savedIndices);
 
-  if (indicies.join(SAVED_INDICIES_SEPARATOR) !== savedData) {
-    saveIndicies(indicies);
+  if (indices.join(SAVED_INDICES_SEPARATOR) !== savedData) {
+    saveIndices(indices);
   }
 
-  return indicies;
+  return indices;
 }
 
 /**

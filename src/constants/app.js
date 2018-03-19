@@ -13,7 +13,7 @@ export const STATUS_ERROR = 'error';
 export const STATUS_WARNING = 'warning';
 export const STATUS_SUCCESS = 'success';
 
-export const STORAGE_KEY_INDICIES = 'indicies';
+export const STORAGE_KEY_INDICES = 'indices';
 export const STORAGE_KEY_CURRENT_INDEX = 'currentIndex';
 export const STORAGE_KEY_SETTINGS = 'settings';
 
