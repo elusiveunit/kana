@@ -160,7 +160,7 @@ export default function Header(props: Props) {
       <RightContainer>
         <HeaderLink
           text="Github"
-          href="https://elusiveunit.github.io/kana"
+          href="https://github.com/elusiveunit/kana"
           hasVisibleText={false}
         >
           <GitHubIcon />
