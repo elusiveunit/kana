@@ -53,6 +53,7 @@ export function getWords(): Array<Word> {
   return wordCache;
 }
 
+const SAVED_INDICIES_SEPARATOR = ',';
 /**
  * Save word collection indicies to localStorage.
  *
@@ -60,7 +61,10 @@ export function getWords(): Array<Word> {
  */
 export function saveIndicies(indicies: Array<number>) {
   try {
-    localStorage.setItem(STORAGE_KEY_INDICIES, indicies.join(','));
+    localStorage.setItem(
+      STORAGE_KEY_INDICIES,
+      indicies.join(SAVED_INDICIES_SEPARATOR),
+    );
     return true;
   } catch (e) {
     logError('Saving indicies', e);
@@ -77,12 +81,17 @@ export function getWordIndicies(): Array<number> {
   const savedData = localStorage.getItem(STORAGE_KEY_INDICIES);
   const savedIndicies = savedData
     ? savedData
-      .split(',')
+      .split(SAVED_INDICIES_SEPARATOR)
       .map((num) => parseInt(num, 10))
       .filter((num) => !Number.isNaN(num))
     : [];
+  const indicies = getRandomIndicies(getWords().length, savedIndicies);
 
-  return getRandomIndicies(getWords().length, savedIndicies);
+  if (indicies.join(SAVED_INDICIES_SEPARATOR) !== savedData) {
+    saveIndicies(indicies);
+  }
+
+  return indicies;
 }
 
 /**
