@@ -46,6 +46,7 @@ const buttonWidth = css`
 
   ${media.small`
     width: 100%;
+    max-width: none;
   `};
 `;
 const buttonSizing = css`
