@@ -6,7 +6,7 @@ import reduce from 'lodash/reduce';
 import { darken, lighten } from 'polished';
 import clamp from 'lodash/clamp';
 
-import { THEME_DARK } from '../constants/app';
+import { THEME_DARK, THEME_LIGHT } from '../constants/app';
 import { STANDARD_SIZES } from '../constants/style';
 import { assign } from './object';
 
@@ -138,7 +138,11 @@ export function getToneFunc(
   props: Object,
   reverse?: boolean = false,
 ): (amount: number, color: string) => string {
-  return props.theme.type === THEME_DARK || reverse ? lighten : darken;
+  const { type } = props.theme;
+  if ((type === THEME_DARK && !reverse) || (type === THEME_LIGHT && reverse)) {
+    return lighten;
+  }
+  return darken;
 }
 
 /**

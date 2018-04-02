@@ -10,7 +10,12 @@
  * https://unicode-table.com/en/blocks/katakana/
  * (https://unicode-table.com/en/blocks/cjk-unified-ideographs/)
  * http://www.rikai.com/library/kanjitables/kanji_codes.unicode.shtml
+ *
+ * @flow
  */
+
+export const TYPE_HIRAGANA = 'hiragana';
+export const TYPE_KATAKANA = 'katakana';
 
 export const ROMAJI_KEY = 0;
 export const HIRAGANA_KEY = 1;
@@ -57,7 +62,7 @@ export const GOJUON = [
   ['yo', 'よ', 'ヨ'],
   ['ra', 'ら', 'ラ'],
   ['ri', 'り', 'リ'],
-  ['ru', 'る', 'ロ'],
+  ['ru', 'る', 'ル'],
   ['re', 'れ', 'レ'],
   ['ro', 'ろ', 'ロ'],
   ['wa', 'わ', 'ワ'],

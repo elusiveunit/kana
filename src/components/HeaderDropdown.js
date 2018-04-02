@@ -5,6 +5,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { Z_INDEX } from '../constants/style';
 import { headerItemStyle } from '../style/mixins';
 import { styleObjectToRules } from '../utils/style';
 import RichText from './RichText';
@@ -38,7 +39,7 @@ const Dialog = styled.div`
   overflow: auto;
   background: ${(props) => props.theme.headerBackgroundHighlightLevel1};
   color: ${(props) => props.theme.headerTextColor};
-  z-index: 100;
+  z-index: ${Z_INDEX.headerDropdown};
 
   a {
     color: inherit;

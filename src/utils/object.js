@@ -4,6 +4,7 @@
  * @flow
  */
 
+import get from 'lodash/get';
 import range from 'lodash/range';
 
 /**
@@ -83,4 +84,47 @@ export function getRandomIndices(
   }
 
   return current;
+}
+
+/**
+ * Format an array for table output.
+ *
+ * Much like `chunk` in lodash, but with the addition of gaps.
+ *
+ * @param {Array} arr - The source data.
+ * @param {number} cols - How many columns to use.
+ * @param {Object} [gaps] - A map of gaps/empty cells in the table.
+ * @example
+ *
+ * tableize([0, 1, 2, 3], 2, { 0: [1], 2: [0] });
+ * // => [[0, null], [1, 2], [null, 3]];
+ */
+export function tableize(
+  arr: Array<any>,
+  cols: number,
+  gaps?: { [number]: Array<number> } = {},
+): Array<any> {
+  const gapCount = Object.values(gaps).reduce(
+    (all, indices) => all.concat(indices),
+    [],
+  ).length;
+  const totalCount = arr.length + gapCount;
+  const rowCount = Math.ceil(totalCount / cols);
+
+  let index = 0;
+  let lastRow = 0;
+  const result = [];
+  while (rowCount > result.length) {
+    const rowGaps = get(gaps, lastRow, []);
+    const rowItemCount = cols - rowGaps.length;
+    const row = arr.slice(index, index + rowItemCount);
+    rowGaps.forEach((gapIndex) => {
+      row.splice(gapIndex, 0, null);
+    });
+    result.push(row);
+    index += rowItemCount;
+    lastRow += 1;
+  }
+
+  return result;
 }

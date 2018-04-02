@@ -9,7 +9,7 @@ import { em } from 'polished';
 import { media } from '../style/mixins';
 import { WORD_SOURCES } from '../utils/word';
 import HeaderDropdown from './HeaderDropdown';
-import HeaderLink from './HeaderLink';
+import HeaderItem from './HeaderItem';
 import Kbd from './Kbd';
 import Quoted from './Quoted';
 import GitHubIcon from './icon/GitHub';
@@ -18,6 +18,11 @@ const StyledHeader = styled.header`
   display: flex;
   background: ${(props) => props.theme.headerBackgroundColor};
   color: #fff;
+
+  ${media.small`
+    padding-left: 5px;
+    padding-right: 5px;
+  `};
 `;
 const LeftContainer = styled.div`
   display: flex;
@@ -51,6 +56,7 @@ type Props = {
   onThemeChange: () => void,
   onKanjiChange: () => void,
   onFontChange: () => void,
+  onReferencePress: () => void,
   isDarkTheme: boolean,
   isSansSerif: boolean,
   showKanji: boolean,
@@ -156,15 +162,16 @@ export default function Header(props: Props) {
             </SettingsLabel>
           </SettingsContainer>
         </HeaderDropdown>
+        <HeaderItem text="Reference" onClick={props.onReferencePress} />
       </LeftContainer>
       <RightContainer>
-        <HeaderLink
+        <HeaderItem
           text="Github"
           href="https://github.com/elusiveunit/kana"
           hasVisibleText={false}
         >
           <GitHubIcon />
-        </HeaderLink>
+        </HeaderItem>
       </RightContainer>
     </StyledHeader>
   );

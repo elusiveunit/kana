@@ -16,6 +16,7 @@ import {
   STATUS_WARNING,
   STATUS_SUCCESS,
 } from '../constants/app';
+import { Z_INDEX } from '../constants/style';
 import { media } from '../style/mixins';
 import { Grid, Item } from './Grid';
 import Button from './Button';
@@ -81,7 +82,7 @@ const QuizSecondaryButtonContainer = styled.div`
   position: absolute;
   top: 100%;
   margin-top: ${GRID_SPACING};
-  z-index: 10;
+  z-index: ${Z_INDEX.quizSecondaryButtons};
 
   ${media.small`
     position: static;

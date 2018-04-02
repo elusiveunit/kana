@@ -46,7 +46,7 @@ const StyledDiv = styled.div`
 
     return '';
   }};
-  `;
+`;
 
 type Props = {
   isMultiline?: boolean,
