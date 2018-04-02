@@ -8,10 +8,11 @@ import styled from 'styled-components';
 import { headerItemStyle } from '../style/mixins';
 import VisuallyHidden from './VisuallyHidden';
 
-const Link = styled.a`
+const Button = styled.button`
   ${headerItemStyle};
   display: flex;
   align-items: center;
+  border: 0;
   text-decoration: none;
 
   &:hover,
@@ -19,26 +20,31 @@ const Link = styled.a`
     background: ${(props) => props.theme.headerBackgroundHighlightLevel1};
   }
 `;
+const Link = Button.withComponent('a');
 
 type Props = {
-  href: string,
   text: string,
   children?: any,
   hasVisibleText?: boolean,
+  href?: ?string,
+  onClick?: ?() => void,
 };
 
-export default function HeaderLink(props: Props) {
+export default function HeaderItem(props: Props) {
   const TextWrap = props.hasVisibleText ? 'span' : VisuallyHidden;
+  const Component = props.href ? Link : Button;
 
   return (
-    <Link href={props.href}>
+    <Component href={props.href} onClick={props.onClick}>
       <TextWrap>{props.text}</TextWrap>
       {props.children}
-    </Link>
+    </Component>
   );
 }
-HeaderLink.displayName = 'components/HeaderLink';
-HeaderLink.defaultProps = {
-  hasVisibleText: true,
+HeaderItem.displayName = 'components/HeaderItem';
+HeaderItem.defaultProps = {
   children: null,
+  hasVisibleText: true,
+  href: null,
+  onClick: null,
 };

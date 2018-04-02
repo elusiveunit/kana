@@ -29,7 +29,7 @@ export const media = mapValues(
 export const headerItemStyle = css`
   height: 55px;
   line-height: 55px;
-  padding: 0 ${themeStatic.pageMargin};
+  padding: 0 ${themeStatic.pageMargin}px;
   vertical-align: middle;
   background: inherit;
   color: inherit;
@@ -42,6 +42,7 @@ export const headerItemStyle = css`
   ${media.small`
     height: 45px;
     line-height: 45px;
+    padding: 0 ${themeStatic.pageMargin - 5}px;
   `};
 `;
 

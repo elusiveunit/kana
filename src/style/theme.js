@@ -14,7 +14,7 @@ export const themeStatic = {
   pageWidthWide: 1480,
   pageWidthRegular: 1160,
   pageWidthThin: 680,
-  pageMargin: '20px',
+  pageMargin: 20,
 
   // Text
   fontStackMain: "'Source Sans Pro', sans-serif",

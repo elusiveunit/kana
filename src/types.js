@@ -18,6 +18,8 @@ export type Font = 'sans' | 'serif';
 
 export type Theme = 'light' | 'dark';
 
+export type KanaType = 'hiragana' | 'katakana';
+
 export type Settings = {
   font: Font,
   theme: Theme,

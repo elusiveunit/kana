@@ -20,12 +20,15 @@ const StyledDiv = styled.div`
       ? `align-self: ${FLEX_VERTICAL_ALIGN_MAP[props.verticalAlign]};`
       : null)};
   ${(props) =>
+    (props.colsMedium ? media.medium`width: ${100 / props.colsMedium}%;` : null)};
+  ${(props) =>
     (props.colsSmall ? media.small`width: ${100 / props.colsSmall}%;` : null)};
 `;
 
 type Props = {
   width?: ?string,
   cols?: ?number,
+  colsMedium?: ?number,
   colsSmall?: ?number,
   grow?: boolean,
   shrink?: ?boolean,
@@ -39,6 +42,7 @@ GridItem.displayName = 'components/GridItem';
 GridItem.defaultProps = {
   width: null,
   cols: null,
+  colsMedium: null,
   colsSmall: null,
   grow: true,
   shrink: null,

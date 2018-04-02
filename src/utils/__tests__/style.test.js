@@ -1,8 +1,10 @@
+import { THEME_DARK, THEME_LIGHT } from '../../constants/app';
 import { STANDARD_SIZES } from '../../constants/style';
 import {
   getSizeValue,
   getSizeRulesFromProps,
   withSizePropStyles,
+  getToneFunc,
 } from '../style';
 
 describe('getSizeValue', () => {
@@ -97,5 +99,35 @@ describe('withSizePropStyles', () => {
     const expected = ['margin-top: 5px;', 'margin-bottom: 10px;'].join('\n');
 
     expect(withSizePropStyles(props)).toEqual(expected);
+  });
+});
+
+describe('getToneFunc', () => {
+  const themeDark = { type: THEME_DARK };
+  const themeLight = { type: THEME_LIGHT };
+  const middleGray = '#808080'; // rgb 128, 128, 128
+
+  it('should return a function', () => {
+    const darkFunc = getToneFunc({ theme: themeDark });
+    const lightFunc = getToneFunc({ theme: themeLight });
+
+    expect(typeof darkFunc).toBe('function');
+    expect(typeof lightFunc).toBe('function');
+  });
+
+  it('should return a function that tones opposite of the current theme', () => {
+    const darkFunc = getToneFunc({ theme: themeDark });
+    const lightFunc = getToneFunc({ theme: themeLight });
+
+    expect(darkFunc(1, middleGray)).toBe('#fff');
+    expect(lightFunc(1, middleGray)).toBe('#000');
+  });
+
+  it('should return a function that tones the same as the current theme', () => {
+    const darkFunc = getToneFunc({ theme: themeDark }, true);
+    const lightFunc = getToneFunc({ theme: themeLight }, true);
+
+    expect(darkFunc(1, middleGray)).toBe('#000');
+    expect(lightFunc(1, middleGray)).toBe('#fff');
   });
 });

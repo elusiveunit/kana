@@ -13,6 +13,12 @@ const PageContainer = styled.div`
   min-height: 100%;
 `;
 const PageBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+`;
+const PageContent = styled.div`
   margin-top: auto;
   margin-bottom: auto;
   padding-top: 20px;
@@ -22,6 +28,7 @@ const PageBody = styled.div`
 type Props = {
   header: mixed,
   bodyContent: mixed,
+  extraContent?: ?mixed,
   theme: Object,
 };
 
@@ -55,10 +62,16 @@ function AppPage(props: Props): Node {
         </style>
       </Helmet>
       {props.header}
-      <PageBody>{props.bodyContent}</PageBody>
+      <PageBody>
+        <PageContent>{props.bodyContent}</PageContent>
+        {props.extraContent}
+      </PageBody>
     </PageContainer>
   );
 }
 AppPage.displayName = 'components/AppPage';
+AppPage.defaultProps = {
+  extraContent: null,
+};
 
 export default withTheme(AppPage);
