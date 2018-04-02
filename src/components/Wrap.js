@@ -16,9 +16,8 @@ const StyledWrap = styled.div`
       regular: em(props.theme.pageWidthRegular),
       thin: em(props.theme.pageWidthThin),
     };
-    const size = props.size || 'regular';
 
-    return sizes[size];
+    return sizes[props.size] || props.size;
   }};
   margin-left: auto;
   margin-right: auto;
