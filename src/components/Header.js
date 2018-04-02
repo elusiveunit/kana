@@ -18,6 +18,11 @@ const StyledHeader = styled.header`
   display: flex;
   background: ${(props) => props.theme.headerBackgroundColor};
   color: #fff;
+
+  ${media.small`
+    padding-left: 5px;
+    padding-right: 5px;
+  `};
 `;
 const LeftContainer = styled.div`
   display: flex;
@@ -51,6 +56,7 @@ type Props = {
   onThemeChange: () => void,
   onKanjiChange: () => void,
   onFontChange: () => void,
+  onReferencePress: () => void,
   isDarkTheme: boolean,
   isSansSerif: boolean,
   showKanji: boolean,
@@ -156,6 +162,7 @@ export default function Header(props: Props) {
             </SettingsLabel>
           </SettingsContainer>
         </HeaderDropdown>
+        <HeaderItem text="Reference" onClick={props.onReferencePress} />
       </LeftContainer>
       <RightContainer>
         <HeaderItem

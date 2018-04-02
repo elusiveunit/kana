@@ -21,8 +21,8 @@ const StyledWrap = styled.div`
   }};
   margin-left: auto;
   margin-right: auto;
-  padding-left: ${(props) => props.theme.pageMargin};
-  padding-right: ${(props) => props.theme.pageMargin};
+  padding-left: ${(props) => props.theme.pageMargin}px;
+  padding-right: ${(props) => props.theme.pageMargin}px;
 `;
 
 type Props = {
