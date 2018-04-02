@@ -9,7 +9,7 @@ import { em } from 'polished';
 import { media } from '../style/mixins';
 import { WORD_SOURCES } from '../utils/word';
 import HeaderDropdown from './HeaderDropdown';
-import HeaderLink from './HeaderLink';
+import HeaderItem from './HeaderItem';
 import Kbd from './Kbd';
 import Quoted from './Quoted';
 import GitHubIcon from './icon/GitHub';
@@ -158,13 +158,13 @@ export default function Header(props: Props) {
         </HeaderDropdown>
       </LeftContainer>
       <RightContainer>
-        <HeaderLink
+        <HeaderItem
           text="Github"
           href="https://github.com/elusiveunit/kana"
           hasVisibleText={false}
         >
           <GitHubIcon />
-        </HeaderLink>
+        </HeaderItem>
       </RightContainer>
     </StyledHeader>
   );
