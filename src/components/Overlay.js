@@ -16,7 +16,10 @@ const Container = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  transition: opacity 0.15s ease, background-color 0.15s ease;
+  transition: opacity 0.15s ease, background-color 0.15s ease,
+    visibility 0s linear 0.15s;
+  ${(props) => (props.isVisible ? 'transition-delay: 0s;' : null)};
+  visibility: ${(props) => (props.isVisible ? 'visible' : 'hidden')};
   opacity: ${(props) => (props.isVisible ? 1 : 0)};
   background-color: ${(props) => props.theme.pageBackgroundColor};
   overflow: auto;
