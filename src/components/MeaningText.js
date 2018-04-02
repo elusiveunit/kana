@@ -17,15 +17,15 @@ const TextContainer = styled.div`
   font-size: calc(14px + 0.2vw);
 `;
 
+function getFormattedMeaning(meaning: string): string {
+  return upperFirst(meaning.replace('|', '<strong>').replace('|', '</strong>'));
+}
+
 type Props = {
   meaning: Array<string>,
   isVisible: boolean,
   onRevealPress: (e: Object) => void,
 };
-
-function getFormattedMeaning(meaning: string): string {
-  return upperFirst(meaning.replace('|', '<strong>').replace('|', '</strong>'));
-}
 
 export default function MeaningText(props: Props): Node {
   /* eslint-disable react/no-danger */

@@ -5,8 +5,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-type Props = {};
-
 const StyledSpan = styled.span`
   clip: rect(0 0 0 0);
   position: absolute;
@@ -18,6 +16,8 @@ const StyledSpan = styled.span`
   overflow: hidden;
   white-space: nowrap;
 `;
+
+type Props = {};
 
 export default function VisuallyHidden(props: Props) {
   return <StyledSpan {...props} />;

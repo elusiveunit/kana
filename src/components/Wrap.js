@@ -8,10 +8,6 @@ import { em } from 'polished';
 
 import { withSizePropStyles } from '../utils/style';
 
-type Props = {
-  size?: 'wide' | 'regular' | 'thin',
-};
-
 const StyledWrap = styled.div`
   ${withSizePropStyles};
   max-width: ${(props) => {
@@ -29,6 +25,10 @@ const StyledWrap = styled.div`
   padding-left: ${(props) => props.theme.pageMargin};
   padding-right: ${(props) => props.theme.pageMargin};
 `;
+
+type Props = {
+  size?: 'wide' | 'regular' | 'thin' | string,
+};
 
 export default function Wrap(props: Props) {
   return <StyledWrap {...props} />;
