@@ -6,6 +6,7 @@ import {
   shuffleArray,
   getRandomRange,
   getRandomIndices,
+  tableize,
 } from '../object';
 
 describe('assign', () => {
@@ -123,5 +124,75 @@ describe('getRandomIndices', () => {
     const resultNewSlice = result.slice(length - lengthDiff);
     resultNewSlice.sort();
     expect(resultNewSlice).toEqual([10, 11, 12, 13, 14]);
+  });
+});
+
+describe('tableize', () => {
+  it('should add a dimension to the passed array', () => {
+    const result = tableize(range(4), 2);
+    // prettier-ignore
+    const expected = [
+      [0, 1],
+      [2, 3],
+    ];
+    expect(result).toEqual(expected);
+  });
+
+  it('should include uneven remainders in the last row', () => {
+    const result = tableize(range(7), 3);
+    // prettier-ignore
+    const expected = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6],
+    ];
+    expect(result).toEqual(expected);
+  });
+
+  it('should handle arrays with any data', () => {
+    const obj = { obj: 'val' };
+    const arr = [0, 1, '2'];
+    const date = new Date();
+    const source = [123, 'str', NaN, obj, false, arr, null, date, true];
+    const result = tableize(source, 3);
+    // prettier-ignore
+    const expected = [
+      [123, 'str', NaN],
+      [obj, false, arr],
+      [null, date, true],
+    ];
+    expect(result).toEqual(expected);
+  });
+
+  it('should take a config object for settings gaps in the table', () => {
+    const gaps = {
+      0: [1],
+      2: [0, 2],
+    };
+    const result = tableize(range(6), 3, gaps);
+    // prettier-ignore
+    const expected = [
+      [0, null, 1],
+      [2, 3, 4],
+      [null, 5, null],
+    ];
+    expect(result).toEqual(expected);
+  });
+
+  it('should handle full rows of gaps', () => {
+    const gaps = {
+      0: [0],
+      1: [0, 1],
+      2: [0, 1],
+    };
+    const result = tableize(range(3), 2, gaps);
+    // prettier-ignore
+    const expected = [
+      [null, 0],
+      [null, null],
+      [null, null],
+      [1, 2],
+    ];
+    expect(result).toEqual(expected);
   });
 });
