@@ -41,16 +41,24 @@ jobs:
 
 workflows:
   version: 2
-  test:
-    filters:
-      branches:
-        only: dev
+  deployment:
     jobs:
-      - test
-  test_and_deploy:
-    filters:
-      branches:
-        only: master
-    jobs:
-      - test
-      - deploy
+      - test:
+          filters:
+            branches:
+              only:
+                - dev
+                - master
+            # "Note: The build job must also have a filters tags section,
+            # as it is a transient dependency of the deploy job."
+            # https://circleci.com/docs/2.0/workflows/
+            tags:
+              only: /.*/
+      - deploy:
+          filters:
+            branches:
+              only: master
+            tags:
+	            only: /^v.*/
+          requires:
+            - test
