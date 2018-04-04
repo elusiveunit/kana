@@ -1,8 +1,8 @@
 # Common for all jobs
 common: &common
+  working_directory: ~/project
   docker:
     - image: circleci/node:9.10-stretch
-  working_directory: ~/project
 
 version: 2
 jobs:
@@ -49,7 +49,7 @@ workflows:
               only:
                 - dev
                 - master
-            # "Note: The build job must also have a filters tags section,
+            # "Note: The test job must also have a filters tags section,
             # as it is a transient dependency of the deploy job."
             # https://circleci.com/docs/2.0/workflows/
             tags:
@@ -59,6 +59,6 @@ workflows:
             branches:
               only: master
             tags:
-	            only: /^v.*/
+              only: /^v.*/
           requires:
             - test
