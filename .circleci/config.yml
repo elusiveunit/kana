@@ -2,7 +2,7 @@
 common: &common
   working_directory: ~/project
   docker:
-    - image: circleci/node:9.10-stretch
+    - image: circleci/node:9-stretch
 
 version: 2
 jobs:
@@ -10,31 +10,56 @@ jobs:
     <<: *common
     steps:
       - checkout
+
+      - run:
+          name: Node Version
+          command: node --version
+
       - restore_cache:
+          name: Restore node_modules cache
           key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+
       - run:
           name: Install dependencies
           command: npm i
+
       - save_cache:
+          name: Save node_modules cache
           key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
-            - ./node_modules
+            - node_modules
+
       - run:
-          name: Run tests
-          command: npm test
+        name: Run tests
+        command: npm test
+
   deploy:
     <<: *common
     steps:
       - checkout
+
+      - run:
+          name: Node Version
+          command: node --version
+
       - restore_cache:
+          name: Restore node_modules cache
           key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+
       - run:
           name: Install dependencies
           command: npm i
+
       - save_cache:
+          name: Save node_modules cache
           key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
-            - ./node_modules
+            - node_modules
+
+      - run:
+        name: Run tests
+        command: npm test
+
       - run:
           name: Build and deploy to GitHub Pages
           command: npm run deploy
@@ -46,19 +71,12 @@ workflows:
       - test:
           filters:
             branches:
-              only:
-                - dev
-                - master
-            # "Note: The test job must also have a filters tags section,
-            # as it is a transient dependency of the deploy job."
-            # https://circleci.com/docs/2.0/workflows/
-            tags:
-              only: /.*/
+              only: dev
       - deploy:
+          # Filters are OR instead of AND as one may assume, so ignore all
+          # branches and only act on version tags
           filters:
             branches:
-              only: master
+              ignore: /.*/
             tags:
               only: /^v.*/
-          requires:
-            - test
