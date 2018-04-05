@@ -80,6 +80,19 @@ describe('checkRomajiAnswer', () => {
     );
   });
 
+  it('should not care about case', () => {
+    expect(checkRomajiAnswer('です', 'desu')).toBe(ANSWER_CORRECT);
+    expect(checkRomajiAnswer('です', 'Desu')).toBe(ANSWER_CORRECT);
+    expect(checkRomajiAnswer('です', 'DESU')).toBe(ANSWER_CORRECT);
+    expect(checkRomajiAnswer('です', 'dEsU')).toBe(ANSWER_CORRECT);
+  });
+
+  it('should not care about whitespace', () => {
+    expect(checkRomajiAnswer('です', 'desu ')).toBe(ANSWER_CORRECT);
+    expect(checkRomajiAnswer(' で す ', 'desu')).toBe(ANSWER_CORRECT);
+    expect(checkRomajiAnswer('で す', 'D E S U')).toBe(ANSWER_CORRECT);
+  });
+
   it('should not care about separators', () => {
     expect(checkRomajiAnswer('いい or よい', 'ii or yoi')).toBe(ANSWER_CORRECT);
     expect(checkRomajiAnswer('いい or よい', 'iiyoi')).toBe(ANSWER_CORRECT);

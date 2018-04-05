@@ -130,6 +130,32 @@ export function getNextWordIndex(
 }
 
 /**
+ * Get a word suited for comparing the essence of an answer.
+ *
+ * Affects several parts of a word so that an answer is checked for knowledge
+ * instead of semantics.
+ *
+ * - Removes separators that some words have so something like 'いい or よい'
+ *   can be answered with just 'iiyoi'.
+ * - Removes punctuation so something like '~です' can be answered with just
+ *   'desu'.
+ * - Removes whitespace.
+ * - Lowercases the word.
+ *
+ * @param {string} rawWord - The word to process.
+ * @return {string}
+ */
+function getSanitizedWord(rawWord: string): string {
+  const metaRegex = /\s+(or|and)\s+(?=.+)/;
+  const punctuationRegex = /[`´"'.,/#!$%^&*;:=—–\-_~[\](){}\s]/g;
+
+  return rawWord
+    .toLowerCase()
+    .replace(metaRegex, '')
+    .replace(punctuationRegex, '');
+}
+
+/**
  * Check if a romanization is correct.
  *
  * @param {string} kana - Kana to romanize.
@@ -137,20 +163,8 @@ export function getNextWordIndex(
  * @return {string} The level of correctness for the supplied answer.
  */
 export function checkRomajiAnswer(kana: string, answer: string): string {
-  // Remove separators that some words have so something like 'いい or よい'
-  // can be answered with just 'iiyoi'.
-  const metaRegex = /\s+(or|and)\s+(?=.+)/;
-
-  // Remove punctuation so something like '~です' can be answered with
-  // just 'desu'. Also remove whitespace.
-  const punctuationRegex = /[`´"'.,/#!$%^&*;:=—–\-_~[\](){}\s]/g;
-
-  const sanitizedAnswer = answer
-    .replace(metaRegex, '')
-    .replace(punctuationRegex, '');
-  const sanitizedRomaji = toRomaji(kana)
-    .replace(metaRegex, '')
-    .replace(punctuationRegex, '');
+  const sanitizedAnswer = getSanitizedWord(answer);
+  const sanitizedRomaji = getSanitizedWord(toRomaji(kana));
 
   // Some lenience for katakana long vowel ou/oo. E.g. the long o in フォーク
   // (fork) is written with ou, not oo (fuouku vs. fuooku), but putting in
