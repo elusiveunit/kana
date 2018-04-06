@@ -31,7 +31,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: npm test
+          command: npm run test-ci
 
   deploy:
     <<: *common
@@ -58,7 +58,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: npm test
+          command: npm run test-ci
 
       - run:
           name: Build and deploy to GitHub Pages
