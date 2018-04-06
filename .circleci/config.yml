@@ -13,7 +13,7 @@ jobs:
 
       - run:
           name: Node Version
-          command: node --version
+          command: 'echo "Node: $(node -v) | npm: $(npm -v)"'
 
       - restore_cache:
           name: Restore node_modules cache
@@ -40,7 +40,7 @@ jobs:
 
       - run:
           name: Node Version
-          command: node --version
+          command: 'echo "Node: $(node -v) | npm: $(npm -v)"'
 
       - restore_cache:
           name: Restore node_modules cache
